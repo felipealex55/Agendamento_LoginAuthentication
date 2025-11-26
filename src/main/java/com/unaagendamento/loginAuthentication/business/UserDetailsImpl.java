@@ -34,14 +34,13 @@ public class UserDetailsImpl implements UserDetails {
     public static UserDetailsImpl build(UserCredentials user) {
 
         return new UserDetailsImpl(
-                user.getId(),
-                user.getEmail(),
-                user.getSenha(),
-                Collections.emptyList());
+        user.getId(),
+        user.getEmail(),
+        user.getSenha(),
+        Collections.emptyList());
     }
 
     // Métodos Spring Security
-
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return authorities; // Retorna a lista de permissões
