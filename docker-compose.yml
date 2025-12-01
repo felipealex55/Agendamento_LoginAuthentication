@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  # --- BANCO 1: CADASTRO (3306) ---
+  db_cadastro:
+    image: mysql:8.0
+    container_name: db_una_cadastro
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_una_cadastro
+    ports:
+      - "3306:3306"
+
+  # --- BANCO 2: LOGIN (3307) ---
+  db_login:
+    image: mysql:8.0
+    container_name: db_una_login
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_una_login
+    ports:
+      - "3307:3306"
+
+  # --- API CADASTRO ---
+  api_cadastro:
+    image: felipealex55/api_cadastro
+    container_name: api_cadastro
+    restart: always
+    ports:
+      - "8080:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_cadastro:3306/db_una_cadastro
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - db_cadastro
+
+  # --- API LOGIN ---
+  api_login:
+    image: felipealex55/api_login
+    container_name: api_login
+    restart: always
+    ports:
+      - "8081:8080"
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:mysql://db_login:3306/db_una_login
+      SPRING_DATASOURCE_USERNAME: root
+      SPRING_DATASOURCE_PASSWORD: root
+    depends_on:
+      - db_login

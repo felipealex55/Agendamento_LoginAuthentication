@@ -48,7 +48,11 @@ public class SecurityConfig {
             .exceptionHandling(exception -> exception.authenticationEntryPoint(unauthorizedHandler))
             .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
             .authorizeHttpRequests(auth -> auth
+                // Regra 1: Login é público
                 .requestMatchers("/auth/login").permitAll()
+                // Regra 2: Sincronização interna é pública (NOVA LINHA)
+                .requestMatchers("/internal/**").permitAll()
+                // Regra 3: Todo o resto precisa de token
                 .anyRequest().authenticated()
             );
 
