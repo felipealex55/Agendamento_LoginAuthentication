@@ -21,7 +21,7 @@ services:
     ports:
       - "3307:3306"
 
-  # --- API CADASTRO ---
+  # --- API CADASTRO (8080) ---
   api_cadastro:
     image: felipealex55/api_cadastro
     container_name: api_cadastro
@@ -35,7 +35,7 @@ services:
     depends_on:
       - db_cadastro
 
-  # --- API LOGIN ---
+  # --- API LOGIN (8081) ---
   api_login:
     image: felipealex55/api_login
     container_name: api_login
